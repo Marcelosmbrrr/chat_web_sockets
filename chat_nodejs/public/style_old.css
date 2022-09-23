@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #242526;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+.container {
+    min-width: 350px;
+    max-width: 350px;
+    max-height: fit-content;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #fff;
+}
+
+.container section,
+.footer div,
+.input {
+    min-width: 100%;
+}
+
+.footer {
+    margin-top: 5px;
+}
+
+#output {
+    min-height: 400px;
+    overflow-y: scroll;
+    border-top: 1px solid #F6F6F6;
+    border-left: 1px solid #F6F6F6;
+    border-bottom: 1px solid #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+input,
+#button {
+    padding: 15px;
+    border: 0px;
+    outline: none;
+    border-radius: 5px;
+}
+
+input {
+    border: 1px solid #236ACA;
+}
+
+#button {
+    cursor: pointer;
+    background-color: #236ACA;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.message {
+    padding: 5px;
+    min-width: 150px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    color: #fff;
+    flex-basis: content;
+    overflow-x: hidden;
+}
+
+.own {
+    align-self: start;
+    background-color: #236ACA;
+}
+
+.their {
+    align-self: end;
+    background-color: #5EBA7D;
+}
+
+textarea {
+    background-color: transparent;
+    border: none;
+    resize: none;
+    color: #fff;
+}

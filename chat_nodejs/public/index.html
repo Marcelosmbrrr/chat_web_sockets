@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+        integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+        crossorigin="anonymous"></script>
+    <title>Chat WebSocket</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <section class="top">
+            <h1>RealTime Chat</h1>
+        </section>
+        <section id="output">
+            <!-- <div class='message own'><textarea disabled rows='1'>You: ${value}</textarea></div> -->
+            <ul id="messages_list">
+            </ul>
+        </section>
+        <section class="footer">
+            <div class="top">
+                <input type="text" placeholder="Type your nickname to connect and press Enter"
+                    style="width: 100%; background-color: #F6F6F6;" />
+            </div>
+        </section>
+    </div>
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    window.addEventListener('load', (e) => {
+
+        const socket = io('http://localhost:3300');
+        socket.nickname = '';
+
+        const input = document.querySelector('input');
+        const messages = document.querySelector('#messages_list');
+
+        input.addEventListener('keypress', function (e) {
+
+            if (e.code === 'Enter') {
+
+                // If user pressed Enter and is not authenticated
+                if (socket.nickname === '') {
+
+                    // Construct data to emission
+                    const nickname = input.value;
+
+                    // Emit to server with data
+                    socket.emit("login", nickname);
+
+                    // Clean input
+                    input.value = '';
+
+                    // If user pressed Enter and is authenticated
+                } else {
+
+                    // Construct data to emission
+                    const message_typed = input.value;
+
+                    // Emit to server with data
+                    socket.emit("new_message", message_typed);
+
+                    // Clean input
+                    input.value = '';
+
+                }
+
+            }
+
+        });
+
+        // ===== SOCKET IO - EMISSIONS FROM SERVER DETECTION ===== // 
+
+        // Emit that come from server with some data
+        // Data: nickname and message in a literal object
+        socket.on('login', ({ nickname, message }) => {
+
+            socket.nickname = nickname;
+
+            const li = document.createElement("li");
+
+            li.appendChild(document.createTextNode(message));
+
+            messages.append(li);
+
+            input.placeholder = 'Type your message and press Enter';
+
+        });
+
+        // Emit that come from server with some data
+        // Data: message typed in the chat 
+        socket.on('new_message', (message_typed) => {
+
+            const li = document.createElement("li");
+
+            li.appendChild(document.createTextNode(message_typed));
+
+            messages.append(li);
+        });
+
+    });
+
+
+</script>
+
+</html>
