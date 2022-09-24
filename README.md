@@ -1,2 +1,2 @@
-# chat_web_sockets
+# About
 Chat built with NodeJS and another with Laravel
