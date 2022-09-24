@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('assets/style.css')}}">
+    @vite('resources/js/app.js')
     <title>{{ env('APP_NAME'); }}</title>
 </head>
 
@@ -22,12 +23,11 @@
         </section>
         <section class="footer">
             <div class="top">
-                <input type="text" placeholder="Type your nickname to connect and press Enter"
+                <input type="text" placeholder="Type your message and press Enter"
                     style="width: 100%; background-color: #F6F6F6;" id="username" />
             </div>
         </section>
     </div>
 
 </body>
-<script src="js/app.js"></script>
 </html>

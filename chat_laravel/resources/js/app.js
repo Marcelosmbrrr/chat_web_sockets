@@ -52,10 +52,18 @@ const handleSendMessage = (message) => {
 }
 
 // ==== LARAVEL ECHO - EMISSIONS FROM SERVER DETECTION ==== //
+window.Echo.channel('login').listen('.login', (e) => {
+
+    const li = document.createElement("li");
+
+    li.appendChild(document.createTextNode(e.message));
+    messages.append(li);
+});
+
 window.Echo.channel('chat').listen('.message', (e) => {
 
     const li = document.createElement("li");
 
     li.appendChild(document.createTextNode(`${e.username}: ${e.message}`));
     messages.append(li);
-})
+});

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Chat;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Events\Message;
 use Illuminate\Support\Facades\Auth;
+// Broadcast event
+use App\Events\Message as SendMessageEvent;
 
 class SendMessageController extends Controller
 {
@@ -17,8 +18,10 @@ class SendMessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
-    {
-        event(new Message($request->message));
+    {   
+         // Event that will execute a server-side emission
+        // Successful send message event emission
+        event(new SendMessageEvent($request->message));
 
         return response([
             "username" => Auth::user()->username
