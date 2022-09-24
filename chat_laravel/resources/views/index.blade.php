@@ -23,8 +23,8 @@
         </section>
         <section class="footer">
             <div class="top">
-                <input type="text" placeholder="Type your message and press Enter"
-                    style="width: 100%; background-color: #F6F6F6;" id="username" />
+                <input type="text" placeholder="Inauthorized"
+                    style="width: 100%; background-color: #F6F6F6;" id="username" disabled />
             </div>
         </section>
     </div>

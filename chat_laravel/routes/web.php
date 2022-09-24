@@ -11,4 +11,4 @@ Route::get('/', function () {
 });
 
 Route::post("/login", AuthenticationController::class);
-Route::post("/send-message", SendMessageController::class);
+Route::post("/send-message", SendMessageController::class)->middleware('auth.basic');

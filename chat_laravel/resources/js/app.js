@@ -3,10 +3,10 @@ import axios from "axios";
 
 window.addEventListener('load', (e) => {
 
-    handleLogin();
-
     const input = document.querySelector('input');
     const messages = document.querySelector('#messages_list');
+
+    handleLogin(input);
 
     input.addEventListener('keypress', function (e) {
 
@@ -23,16 +23,18 @@ window.addEventListener('load', (e) => {
 
 });
 
-const handleLogin = () => {
+const handleLogin = (input) => {
 
-    const username = prompt('Username: ');
+    const email = prompt('Email: ');
     const password = prompt('Password: ');
 
     axios.post('http://localhost:8000/login', {
-        username: username,
+        email: email,
         password: password
     })
         .then((response) => {
+            input.disabled = false;
+            input.placeholder = 'Type your message and press Enter';
             alert(response.data.message);
         })
         .catch((error) => {
@@ -47,12 +49,15 @@ const handleSendMessage = (message) => {
     // Emit to server with data
     axios.post('http://localhost:8000/send-message', {
         message: message
-    });
+    })
+        .catch((error) => {
+            alert(error.response.message)
+        })
 
 }
 
 // ==== LARAVEL ECHO - EMISSIONS FROM SERVER DETECTION ==== //
-window.Echo.channel('login').listen('.login', (e) => {
+window.Echo.channel('login').listen('authenticated', (e) => {
 
     const li = document.createElement("li");
 
@@ -60,10 +65,12 @@ window.Echo.channel('login').listen('.login', (e) => {
     messages.append(li);
 });
 
-window.Echo.channel('chat').listen('.message', (e) => {
+window.Echo.channel('chat').listen('message', (e) => {
+
+    console.log(e)
 
     const li = document.createElement("li");
 
-    li.appendChild(document.createTextNode(`${e.username}: ${e.message}`));
+    li.appendChild(document.createTextNode(e.message));
     messages.append(li);
 });

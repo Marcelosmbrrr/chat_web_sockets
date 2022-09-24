@@ -19,13 +19,12 @@ class Message implements ShouldBroadcast
 
     public function __construct(string $message)
     {
-        $this->username = Auth::user()->username;
-        $this->message = $message;
+        $this->message = Auth::user()->username . ": " . $message;
     }
 
     public function broadcastOn()
     {
-        return new PrivateChannel('chat');
+        return ['chat'];
     }
 
     public function broadcastAs()

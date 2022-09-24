@@ -27,11 +27,11 @@ class Authenticated
 
     public function broadcastOn()
     {
-        return new PrivateChannel('login');
+        return ['login'];
     }
 
     public function broadcastAs()
     {
-        return 'login';
+        return 'authenticated';
     }
 }
